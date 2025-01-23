@@ -1,11 +1,14 @@
 package com.mx.apiRestCinepolis.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mx.apiClientesBancomer.model.Empleados;
 import com.mx.apiRestCinepolis.dao.PeliculasDao;
 import com.mx.apiRestCinepolis.model.Peliculas;
 
@@ -38,23 +41,54 @@ public class PeliculaServImp implements PeliculaServ {
 		// TODO Auto-generated method stub
 		return (List<Peliculas>) dao.findAll();
 	}
-
+   @Transactional(readOnly = true)
 	@Override
 	public Peliculas buscarXid(int idPeli) {
 		// TODO Auto-generated method stub
-		return null;
+		Optional<Peliculas>peliculaOptional= dao.findById(idPeli);
+		
+		return peliculaOptional.orElse(null);
 	}
 
 	@Override
 	public void editar(Peliculas pelicula) {
 		// TODO Auto-generated method stub
 		
+		dao.save(pelicula);
+		
 	}
-
+	@Transactional
 	@Override
 	public void eliminarXid(int idPel) {
 		// TODO Auto-generated method stub
+		dao.deleteById(idPel);
 		
+	}
+
+@Transactional(readOnly= true)
+	@Override
+	public List<Peliculas> buscarXnombre(String nombre) {
+		// TODO Auto-generated method stub
+		List<Peliculas>lista= dao.findByNombre(nombre);
+		return lista;
+	}
+	
+
+	@Override
+	public List<Peliculas> buscarXgenero(String genero) {
+		
+		List<Peliculas> buscarGenero= new ArrayList<Peliculas>();
+		
+		for(Peliculas pelicuala: listar()) {
+			if(pelicuala.getGenero().equals(genero)) {
+				buscarGenero.add(pelicuala);
+				
+			}
+			
+			
+		}
+		// TODO Auto-generated method stub
+		return buscarGenero;
 	}
 
 }

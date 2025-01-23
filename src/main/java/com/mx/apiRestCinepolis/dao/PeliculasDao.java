@@ -1,5 +1,7 @@
 package com.mx.apiRestCinepolis.dao;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.mx.apiRestCinepolis.model.Peliculas;
@@ -9,5 +11,9 @@ import com.mx.apiRestCinepolis.model.Peliculas;
 
 public interface PeliculasDao extends CrudRepository<Peliculas,Integer> {
 	
+	
+	// crear un metodo utilizasdo el resorte de los repositorios: findBy
+	
+	public List<Peliculas>findByNombre(String nombre);
 
 }

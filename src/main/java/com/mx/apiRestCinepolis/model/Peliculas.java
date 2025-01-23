@@ -40,7 +40,7 @@ public class Peliculas {
 	private String genero;
 	
 	@Column(name= "PRECIO", columnDefinition = "NUMBER", nullable= false)
-	private Integer precio;
+	private Float precio;
 	
 	
 	
